@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="慈濟大學經營管理學系介紹與學習資源展示。">
+  <title>慈濟大學經營管理學系｜Department of Business Management</title>
+  <style>
+    /* ==========================================================
+       01. 主題設定：修改下列變數即可調整全站配色
+       ========================================================== */
+    :root {
+      --wine: #682c3b;
+      --wine-dark: #421d29;
+      --gold: #b9945b;
+      --cream: #f7f4ee;
+      --paper: #ffffff;
+      --ink: #24313a;
+      --muted: #647078;
+      --line: #e8e0d6;
+      --font-zh: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    }
+
+    /* 02. 基本排版 */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: var(--font-zh); color: var(--ink); background: var(--cream); line-height: 1.8; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    .container { width: min(1160px, calc(100% - 44px)); margin: auto; }
+    .eyebrow { color: var(--gold); font-size: .76rem; letter-spacing: .18em; font-weight: 700; text-transform: uppercase; }
+    .section-title { margin: 10px 0 12px; font-size: clamp(1.8rem, 3vw, 2.55rem); line-height: 1.35; }
+    .section-lead { color: var(--muted); max-width: 670px; margin: 0; }
+    .section { padding: 85px 0; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 23px; border-radius: 4px; font-weight: 700; transition: .2s; }
+    .btn-primary { background: var(--gold); color: #241b16; }
+    .btn-primary:hover { background: #d4ae73; transform: translateY(-2px); }
+    .btn-outline { border: 1px solid #ffffff90; color: #fff; }
+    .btn-outline:hover { background: #ffffff22; }
+
+    /* 03. 頁首與導覽 */
+    .utility { background: var(--wine-dark); color: #f4e9e7; font-size: .75rem; }
+    .utility .container { display: flex; justify-content: space-between; padding: 7px 0; gap: 15px; }
+    .utility a:hover { text-decoration: underline; }
+    .header { background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20; box-shadow: 0 2px 15px #00000009; }
+    .header-inner { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand-mark { width: 49px; height: 49px; display: grid; place-items: center; background: var(--wine); color: #fff; border: 2px solid var(--gold); font-size: 1.1rem; font-weight: 800; letter-spacing: -.05em; }
+    .brand strong { display: block; font-size: 1.13rem; line-height: 1.35; }
+    .brand small { display: block; font-size: .66rem; color: var(--muted); letter-spacing: .04em; }
+    .nav { display: flex; gap: 25px; align-items: center; font-size: .91rem; font-weight: 700; }
+    .nav a:hover, .nav a.active { color: var(--wine); }
+    .nav .nav-feature { padding: 9px 15px; background: var(--wine); color: #fff; border-radius: 3px; }
+    .nav .nav-feature:hover { color: #fff; background: var(--wine-dark); }
+    .menu-toggle { display: none; background: transparent; border: 1px solid var(--line); padding: 6px 12px; border-radius: 4px; }
+
+    /* 04. 首頁主視覺：不依賴外部圖片 */
+    .hero { position: relative; overflow: hidden; background: linear-gradient(120deg, #3b1b28, #703446 65%, #85505b); color: white; }
+    .hero::before { content: ""; position: absolute; inset: 0; opacity: .22; background: repeating-linear-gradient(112deg, transparent 0 115px, #e7cba0 116px, transparent 117px); }
+    .hero::after { content: "TCU"; position: absolute; right: -35px; bottom: -145px; font-family: Georgia, serif; font-size: clamp(210px, 36vw, 540px); font-weight: bold; color: #ffffff0b; line-height: 1; pointer-events: none; }
+    .hero-content { position: relative; z-index: 1; padding: 115px 0 125px; max-width: 850px; }
+    .hero .eyebrow { color: #e8c998; }
+    .hero h1 { font-size: clamp(2.4rem, 5vw, 4.4rem); line-height: 1.3; letter-spacing: .04em; margin: 18px 0; }
+    .hero h1 span { display: block; font-size: clamp(1rem, 1.8vw, 1.35rem); font-weight: 400; letter-spacing: .1em; margin-top: 13px; color: #f0dbd7; }
+    .hero p { max-width: 620px; color: #f6e9e5; font-size: 1.05rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .hero-line { width: 68px; height: 3px; background: var(--gold); }
+
+    /* 05. 資訊區塊 */
+    .quicklinks { margin-top: -38px; position: relative; z-index: 3; }
+    .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: white; box-shadow: 0 18px 40px #36232b18; border-radius: 5px; overflow: hidden; }
+    .quick-item { padding: 25px; border-right: 1px solid var(--line); }
+    .quick-item:last-child { border-right: 0; }
+    .quick-item .number { color: var(--gold); font-family: Georgia, serif; font-size: 1.5rem; }
+    .quick-item strong { display: block; color: var(--wine); margin-top: 3px; }
+    .quick-item small { color: var(--muted); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 65px; align-items: center; }
+    .about-visual { min-height: 410px; background: linear-gradient(145deg, #d4c4b0, #a78074); position: relative; overflow: hidden; border-radius: 4px; }
+    .about-visual::before { content: ""; position: absolute; left: 17%; right: 17%; bottom: 0; height: 75%; background: repeating-linear-gradient(90deg, #f8eee2 0 36px, #cbb49d 37px 42px); clip-path: polygon(0 17%, 50% 0, 100% 17%, 100% 100%, 0 100%); box-shadow: 0 0 0 10px #ffffff30; }
+    .about-visual::after { content: "學以致用 · 立足國際"; position: absolute; bottom: 26px; left: 25px; right: 25px; padding: 15px; background: #421d29e8; color: white; text-align: center; font-weight: 700; letter-spacing: .15em; }
+    .about-copy p { color: #55616a; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 36px; }
+    .card { background: white; border: 1px solid var(--line); padding: 30px; border-radius: 4px; transition: transform .2s, box-shadow .2s; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 15px 32px #00000010; }
+    .card .card-icon { font-size: 2rem; display: block; margin-bottom: 15px; }
+    .card h3 { margin: 0 0 8px; color: var(--wine); }
+    .card p { color: var(--muted); font-size: .91rem; margin: 0; }
+    .card .more { color: var(--wine); font-weight: 700; font-size: .86rem; display: inline-block; margin-top: 20px; }
+    .feature-section { background: #efe9df; }
+    .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 35px; }
+    .feature { background: #fff; padding: 24px; border-left: 4px solid var(--gold); }
+    .feature h3 { margin: 0 0 5px; }
+    .feature p { margin: 0; color: var(--muted); font-size: .92rem; }
+    .outcome-banner { background: var(--wine); color: #fff; padding: 66px 0; }
+    .banner-inner { display: flex; align-items: center; justify-content: space-between; gap: 35px; }
+    .outcome-banner h2 { margin: 5px 0 10px; font-size: 2rem; }
+    .outcome-banner p { margin: 0; color: #f1dfe2; }
+    .footer { background: #261d22; color: #e6dfe0; padding: 50px 0 20px; }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 45px; }
+    .footer h3 { color: #fff; margin-top: 0; }
+    .footer p, .footer a { font-size: .86rem; color: #d4c6c9; }
+    .footer-bottom { margin-top: 35px; border-top: 1px solid #ffffff25; padding-top: 18px; font-size: .76rem; color: #b7a6ab; }
+
+    /* 06. 手機與平板 */
+    @media (max-width: 850px) {
+      .menu-toggle { display: block; }
+      .nav { display: none; position: absolute; top: 84px; left: 0; right: 0; background: white; padding: 20px 25px; box-shadow: 0 12px 18px #00000015; flex-direction: column; align-items: stretch; gap: 15px; }
+      .nav.open { display: flex; }
+      .quick-grid { grid-template-columns: repeat(2, 1fr); }
+      .quick-item:nth-child(2) { border-right: 0; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .cards { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .utility { display: none; }
+      .brand strong { font-size: .92rem; }
+      .brand small { font-size: .55rem; }
+      .hero-content { padding: 80px 0 100px; }
+      .section { padding: 60px 0; }
+      .quick-grid, .feature-grid, .footer-grid { grid-template-columns: 1fr; }
+      .quick-item { border-right: 0; border-bottom: 1px solid var(--line); }
+      .banner-inner { align-items: flex-start; flex-direction: column; }
+      .about-visual { min-height: 300px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 頂部資訊列 -->
+  <div class="utility">
+    <div class="container">
+      <span>慈濟大學 Tzu Chi University</span>
+      <span><a href="https://mdm.tcu.edu.tw/p/412-1021-2.php" target="_blank" rel="noopener">原系所網站</a>　｜　花蓮・臺灣</span>
+    </div>
+  </div>
+
+  <!-- 主要導覽：兩頁使用相同架構 -->
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="返回系所首頁">
+        <span class="brand-mark">TCU</span>
+        <span><strong>慈濟大學 經營管理學系</strong><small>DEPARTMENT OF BUSINESS MANAGEMENT</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">☰ 選單</button>
+      <nav class="nav" id="main-nav" aria-label="主要導覽">
+        <a class="active" href="index.html">系所首頁</a>
+        <a href="#about">關於本系</a>
+        <a href="#curriculum">課程與學習</a>
+        <a href="#features">系所特色</a>
+        <a class="nav-feature" href="student_outcomes.html">學生學習成果 ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 首頁主視覺 -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-content">
+        <div class="hero-line"></div>
+        <p class="eyebrow">Knowledge · Practice · Impact</p>
+        <h1 id="hero-title">以管理專業，<br>創造永續影響力<span>Department of Business Management · Tzu Chi University</span></h1>
+        <p>從商業知識到實務應用，培養具備跨域思考、創新能力與人文關懷的未來管理人才。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#about">探索本系 →</a>
+          <a class="btn btn-outline" href="student_outcomes.html">欣賞學生作品 ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="container quicklinks" aria-label="快速導覽">
+      <div class="quick-grid">
+        <a class="quick-item" href="#about"><span class="number">01</span><strong>認識經營管理</strong><small>About the Department →</small></a>
+        <a class="quick-item" href="#curriculum"><span class="number">02</span><strong>課程與專業</strong><small>Academic Programs →</small></a>
+        <a class="quick-item" href="#features"><span class="number">03</span><strong>跨域與實作</strong><small>Learning Experience →</small></a>
+        <a class="quick-item" href="student_outcomes.html"><span class="number">04</span><strong>學生學習成果</strong><small>Student Showcase →</small></a>
+      </div>
+    </div>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="about-visual" role="img" aria-label="學術建築風格的裝飾性示意圖，非實際校園照片"></div>
+        <div class="about-copy">
+          <span class="eyebrow">Our Department</span>
+          <h2 class="section-title">專業學習與人文素養並進</h2>
+          <p>慈濟大學經營管理學系以經營管理領域的專業養成為核心，連結課堂學習、專題實作及多元文化交流，鼓勵學生將知識轉化為可實踐的解決方案。</p>
+          <p>本頁為系所資訊的重新設計展示版。課程規劃、入學與畢業規定，請以學校正式公告為準。</p>
+          <a class="btn btn-primary" href="https://mdm.tcu.edu.tw/p/412-1021-2.php" target="_blank" rel="noopener">查看系所正式介紹 ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section feature-section" id="curriculum">
+      <div class="container">
+        <span class="eyebrow">Academic Journey</span>
+        <h2 class="section-title">多元課程，建立完整專業能力</h2>
+        <p class="section-lead">以下為課程主題的視覺化整理，非正式課程分類或必修科目清單。</p>
+        <div class="cards">
+          <article class="card"><span class="card-icon" aria-hidden="true">◈</span><h3>經營與管理</h3><p>理解組織運作、策略思考與商業決策，培養管理基礎。</p><a class="more" href="https://mdm.tcu.edu.tw/p/412-1021-16.php?Lang=en" target="_blank" rel="noopener">正式課程資訊 ↗</a></article>
+          <article class="card"><span class="card-icon" aria-hidden="true">◎</span><h3>行銷與創新</h3><p>結合市場洞察、創意發想與企劃實作，回應真實需求。</p><a class="more" href="student_outcomes.html">觀賞相關成果 →</a></article>
+          <article class="card"><span class="card-icon" aria-hidden="true">✧</span><h3>實務與跨域</h3><p>透過專題、活動與跨文化合作，累積問題解決經驗。</p><a class="more" href="student_outcomes.html">觀賞相關成果 →</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <span class="eyebrow">Learning Beyond Classroom</span>
+        <h2 class="section-title">讓學習走出教室</h2>
+        <p class="section-lead">從產品開發到社會議題，讓學生以實際行動展現學習成果。</p>
+        <div class="feature-grid">
+          <div class="feature"><h3>專題導向學習</h3><p>透過作品設計與成果發表，將概念轉化為具體方案。</p></div>
+          <div class="feature"><h3>永續與社會關懷</h3><p>鼓勵關注環境、農業與社會需求，思考商業的正向影響。</p></div>
+          <div class="feature"><h3>國際交流</h3><p>結合不同文化背景的學習經驗，拓展全球視野。</p></div>
+          <div class="feature"><h3>實務問題解決</h3><p>透過設計思考與應用實作，培養合作與創新能力。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="outcome-banner">
+      <div class="container banner-inner">
+        <div><span class="eyebrow">Student Showcase</span><h2>看見學生的創意與行動</h2><p>探索學生作品、實作專題與多元學習歷程。</p></div>
+        <a class="btn btn-primary" href="student_outcomes.html">前往學生學習成果頁 →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><h3>慈濟大學 經營管理學系</h3><p>Department of Business Management<br>Tzu Chi University</p><p>本網站為網頁視覺設計示範，非學校正式公告網站。</p></div>
+        <div><h3>聯絡資訊</h3><p>97074 花蓮市介仁街 67 號<br>電話：03-857-2677 分機 31682<br>電子郵件：<a href="mailto:ss62@gms.tcu.edu.tw">ss62@gms.tcu.edu.tw</a></p></div>
+      </div>
+      <div class="footer-bottom">© <span id="year"></span> TCU Department of Business Management · Website Design Demo</div>
+    </div>
+  </footer>
+
+  <script>
+    /* 07. 手機導覽開關 */
+    const menuButton = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('#main-nav');
+
+    menuButton.addEventListener('click', () => {
+      const isOpen = mainNav.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    mainNav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* 08. 自動更新版權年份 */
+    document.querySelector('#year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

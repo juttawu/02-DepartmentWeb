@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="慈濟大學經營管理學系學生學習成果展示。">
+  <title>學生學習成果｜慈濟大學經營管理學系</title>
+  <style>
+    /* ==========================================================
+       01. 成果頁主題：深藍綠 × 暖金，呼應首頁的學術風格
+       ========================================================== */
+    :root {
+      --teal: #194f54;
+      --teal-dark: #10383e;
+      --gold: #bc985e;
+      --cream: #f7f4ee;
+      --white: #ffffff;
+      --ink: #24313a;
+      --muted: #627176;
+      --line: #e4e5df;
+      --font-zh: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    }
+
+    /* 02. 共用基本樣式 */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: var(--font-zh); background: var(--cream); color: var(--ink); line-height: 1.8; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    .container { width: min(1160px, calc(100% - 44px)); margin: auto; }
+    .eyebrow { color: var(--gold); font-size: .76rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+    .section-title { font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.35; margin: 10px 0; }
+    .section { padding: 72px 0; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 22px; border-radius: 4px; font-weight: 700; }
+    .btn-gold { background: var(--gold); color: #211c15; }
+    .btn-gold:hover { background: #d5b278; }
+
+    /* 03. 頁首：結構與首頁一致 */
+    .utility { background: var(--teal-dark); color: #e3efed; font-size: .75rem; }
+    .utility .container { display: flex; justify-content: space-between; padding: 7px 0; }
+    .header { background: white; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20; box-shadow: 0 2px 15px #00000009; }
+    .header-inner { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand-mark { width: 49px; height: 49px; display: grid; place-items: center; background: var(--teal); border: 2px solid var(--gold); color: white; font-size: 1.1rem; font-weight: 800; }
+    .brand strong { display: block; font-size: 1.13rem; line-height: 1.35; }
+    .brand small { display: block; color: var(--muted); font-size: .66rem; letter-spacing: .04em; }
+    .nav { display: flex; gap: 25px; align-items: center; font-size: .91rem; font-weight: 700; }
+    .nav a:hover, .nav .active { color: var(--teal); }
+    .nav .nav-feature { background: var(--teal); color: white; padding: 9px 15px; border-radius: 3px; }
+    .nav .nav-feature:hover { color: white; background: var(--teal-dark); }
+    .menu-toggle { display: none; background: transparent; border: 1px solid var(--line); padding: 6px 12px; border-radius: 4px; }
+
+    /* 04. 主視覺與簡介 */
+    .hero { background: linear-gradient(115deg, #10383e, #1e5960 70%, #356c6d); color: white; position: relative; overflow: hidden; }
+    .hero::after { content: "CREATE"; position: absolute; right: -45px; bottom: -65px; font: 900 clamp(110px, 17vw, 260px) Georgia, serif; color: #ffffff0b; pointer-events: none; }
+    .hero-inner { position: relative; z-index: 1; padding: 88px 0 95px; }
+    .hero h1 { font-size: clamp(2.3rem, 5vw, 4.2rem); line-height: 1.3; margin: 12px 0; }
+    .hero p { max-width: 650px; color: #dbeae7; }
+    .breadcrumbs { font-size: .85rem; color: #d3e2df; }
+    .breadcrumbs a { text-decoration: underline; text-underline-offset: 4px; }
+    .intro { display: flex; justify-content: space-between; align-items: flex-end; gap: 25px; margin-bottom: 30px; }
+    .intro p { color: var(--muted); max-width: 670px; margin: 0; }
+
+    /* 05. 作品篩選工具列 */
+    .filters { display: flex; gap: 10px; flex-wrap: wrap; margin: 22px 0 30px; }
+    .filter-btn { background: white; border: 1px solid #ccd9d7; color: var(--teal); border-radius: 50px; padding: 8px 19px; font-weight: 700; }
+    .filter-btn:hover, .filter-btn.active { background: var(--teal); border-color: var(--teal); color: white; }
+    .result-count { font-size: .84rem; color: var(--muted); margin-bottom: 18px; }
+
+    /* 06. 作品卡片：插圖採 CSS，不依賴外部圖片網址 */
+    .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .project { background: white; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; box-shadow: 0 5px 20px #203c3d08; transition: transform .2s, box-shadow .2s; }
+    .project:hover { transform: translateY(-5px); box-shadow: 0 15px 30px #203c3d18; }
+    .project[hidden] { display: none; }
+    .project-visual { height: 200px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .project-visual::before { content: ""; width: 210px; height: 210px; border: 1px solid #ffffff50; border-radius: 50%; position: absolute; }
+    .project-visual::after { content: ""; width: 275px; height: 275px; border: 1px solid #ffffff30; border-radius: 50%; position: absolute; }
+    .project-symbol { position: relative; z-index: 1; font-size: 4.3rem; line-height: 1; filter: drop-shadow(0 8px 8px #00000012); }
+    .visual-solar { background: linear-gradient(135deg, #b4a477, #e1c990); }
+    .visual-soap { background: linear-gradient(135deg, #82a8a0, #c3dbcb); }
+    .visual-app { background: linear-gradient(135deg, #638c9a, #a9cbd3); }
+    .visual-clean { background: linear-gradient(135deg, #b9b1a4, #e5d9c5); }
+    .visual-food { background: linear-gradient(135deg, #a97d68, #e3bd99); }
+    .visual-thinking { background: linear-gradient(135deg, #8980a1, #c6bbd5); }
+    .project-body { padding: 24px; }
+    .project-tag { display: inline-block; background: #e7f0ed; color: var(--teal); border-radius: 3px; font-size: .73rem; font-weight: 700; padding: 3px 9px; }
+    .project h3 { font-size: 1.17rem; margin: 12px 0 7px; color: #203d40; }
+    .project p { color: var(--muted); font-size: .9rem; margin: 0; min-height: 85px; }
+    .project-source { display: inline-block; margin-top: 15px; color: var(--teal); font-weight: 700; font-size: .84rem; }
+    .note { margin-top: 30px; background: #e8efea; border-left: 4px solid var(--teal); padding: 16px 20px; font-size: .87rem; color: #3c5553; }
+
+    /* 07. 後續作品上架提示 */
+    .submit-section { background: #e9eee9; }
+    .submit-grid { display: grid; grid-template-columns: 1.3fr .7fr; align-items: center; gap: 40px; }
+    .submit-section p { color: var(--muted); }
+    .submit-visual { padding: 35px; background: var(--teal); color: #fff; border-radius: 5px; text-align: center; }
+    .submit-visual strong { display: block; font-size: 2.3rem; font-family: Georgia, serif; }
+    .submit-visual small { color: #d6e8e4; }
+    .footer { background: #182e31; color: #e6eeee; padding: 48px 0 20px; }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 45px; }
+    .footer h3 { color: white; margin-top: 0; }
+    .footer p, .footer a { color: #c4d6d3; font-size: .86rem; }
+    .footer-bottom { border-top: 1px solid #ffffff25; margin-top: 32px; padding-top: 18px; font-size: .76rem; color: #abc2be; }
+
+    /* 08. 響應式 */
+    @media (max-width: 900px) {
+      .menu-toggle { display: block; }
+      .nav { display: none; position: absolute; top: 84px; left: 0; right: 0; padding: 20px 25px; background: white; box-shadow: 0 12px 18px #00000015; flex-direction: column; align-items: stretch; gap: 15px; }
+      .nav.open { display: flex; }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 620px) {
+      .utility { display: none; }
+      .brand strong { font-size: .92rem; }
+      .brand small { font-size: .55rem; }
+      .hero-inner { padding: 65px 0 75px; }
+      .section { padding: 55px 0; }
+      .gallery, .submit-grid, .footer-grid { grid-template-columns: 1fr; }
+      .intro { display: block; }
+      .project p { min-height: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="utility"><div class="container"><span>慈濟大學 Tzu Chi University</span><span>Student Learning Showcase</span></div></div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="返回系所首頁">
+        <span class="brand-mark">TCU</span>
+        <span><strong>慈濟大學 經營管理學系</strong><small>DEPARTMENT OF BUSINESS MANAGEMENT</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">☰ 選單</button>
+      <nav class="nav" id="main-nav" aria-label="主要導覽">
+        <a href="index.html">系所首頁</a>
+        <a href="index.html#about">關於本系</a>
+        <a href="index.html#curriculum">課程與學習</a>
+        <a href="index.html#features">系所特色</a>
+        <a class="nav-feature active" href="student_outcomes.html">學生學習成果</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="breadcrumbs"><a href="index.html">系所首頁</a>　/　學生學習成果</div>
+        <p class="eyebrow">Ideas Into Action · Student Showcase</p>
+        <h1>從創意到實踐<br>看見學習的力量</h1>
+        <p>讓作品說故事：探索學生如何透過創意、合作與實作，回應生活與社會的真實需求。</p>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="intro">
+          <div><span class="eyebrow">Featured Student Works</span><h2 class="section-title">學生作品精選</h2><p>以下依原系網 Student Life 所列案例整理。部分歷史成果沿用原頁所載的舊系名／校名背景，並非宣稱皆為現行學制作品。</p></div>
+        </div>
+
+        <!-- 篩選按鈕的 data-filter 必須對應作品的 data-category -->
+        <div class="filters" role="group" aria-label="依作品類別篩選">
+          <button class="filter-btn active" data-filter="all" type="button" aria-pressed="true">全部作品</button>
+          <button class="filter-btn" data-filter="sustainability" type="button" aria-pressed="false">永續創新</button>
+          <button class="filter-btn" data-filter="technology" type="button" aria-pressed="false">科技應用</button>
+          <button class="filter-btn" data-filter="product" type="button" aria-pressed="false">產品開發</button>
+          <button class="filter-btn" data-filter="learning" type="button" aria-pressed="false">跨域學習</button>
+        </div>
+        <div class="result-count" id="result-count" aria-live="polite">目前顯示 6 件成果</div>
+
+        <!-- 每一個 article 代表一件作品；可複製整個區塊新增作品 -->
+        <div class="gallery">
+          <article class="project" data-category="sustainability">
+            <div class="project-visual visual-solar" role="img" aria-label="太陽能乾燥設備的圖像示意"><span class="project-symbol" aria-hidden="true">☀️</span></div>
+            <div class="project-body"><span class="project-tag">永續創新</span><h3>太陽能農產品乾燥機</h3><p>印尼學生設計利用太陽熱能的乾燥設備，協助處理農作物生產過剩與保存問題。</p><a class="project-source" href="https://mdm.tcu.edu.tw/p/412-1021-63.php?Lang=en" target="_blank" rel="noopener">原網站成果介紹 ↗</a></div>
+          </article>
+
+          <article class="project" data-category="product">
+            <div class="project-visual visual-soap" role="img" aria-label="天然香皂的圖像示意"><span class="project-symbol" aria-hidden="true">🧼</span></div>
+            <div class="project-body"><span class="project-tag">產品開發</span><h3>環境友善天然香皂</h3><p>學生在教師指導下製作天然香皂，兼顧環境友善與日常清潔需求。</p><a class="project-source" href="https://mdm.tcu.edu.tw/p/412-1021-63.php?Lang=en" target="_blank" rel="noopener">原網站成果介紹 ↗</a></div>
+          </article>
+
+          <article class="project" data-category="technology">
+            <div class="project-visual visual-app" role="img" aria-label="智慧澆水應用程式的圖像示意"><span class="project-symbol" aria-hidden="true">💧</span></div>
+            <div class="project-body"><span class="project-tag">科技應用</span><h3>智慧自動澆水應用程式</h3><p>印尼學生設計智慧澆水應用程式，協助農民節省時間並自動化植物灌溉。</p><a class="project-source" href="https://mdm.tcu.edu.tw/p/412-1021-63.php?Lang=en" target="_blank" rel="noopener">原網站成果介紹 ↗</a></div>
+          </article>
+
+          <article class="project" data-category="product">
+            <div class="project-visual visual-clean" role="img" aria-label="多用途清潔劑的圖像示意"><span class="project-symbol" aria-hidden="true">🫧</span></div>
+            <div class="project-body"><span class="project-tag">產品開發</span><h3>多用途環保清潔劑</h3><p>學生開發可用於洗衣、拖地及清洗餐具的多用途清潔產品。</p><a class="project-source" href="https://mdm.tcu.edu.tw/p/412-1021-63.php?Lang=en" target="_blank" rel="noopener">原網站成果介紹 ↗</a></div>
+          </article>
+
+          <article class="project" data-category="product">
+            <div class="project-visual visual-food" role="img" aria-label="紅藜能量棒的圖像示意"><span class="project-symbol" aria-hidden="true">🌾</span></div>
+            <div class="project-body"><span class="project-tag">產品開發</span><h3>紅藜能量棒</h3><p>學生在教師與業師指導下，將紅藜製作成健康零食，展現農產品加值應用。</p><a class="project-source" href="https://mdm.tcu.edu.tw/p/412-1021-63.php?Lang=en" target="_blank" rel="noopener">原網站成果介紹 ↗</a></div>
+          </article>
+
+          <article class="project" data-category="learning">
+            <div class="project-visual visual-thinking" role="img" aria-label="設計思考工作坊的圖像示意"><span class="project-symbol" aria-hidden="true">💡</span></div>
+            <div class="project-body"><span class="project-tag">跨域學習</span><h3>設計思考工作坊</h3><p>學生參與設計思考工作坊，練習以創意方法面對問題並提出解決構想。</p><a class="project-source" href="https://mdm.tcu.edu.tw/p/412-1021-63.php?Lang=en" target="_blank" rel="noopener">原網站活動介紹 ↗</a></div>
+          </article>
+        </div>
+
+        <div class="note"><strong>圖片說明：</strong>目前卡片使用不需網路連線的圖像符號與 CSS 背景，並非原作品照片。後續可替換為已獲授權的學生作品照片；成果文字請於正式發布前再次確認。</div>
+      </div>
+    </section>
+
+    <section class="section submit-section">
+      <div class="container submit-grid">
+        <div><span class="eyebrow">Keep Creating</span><h2 class="section-title">每一份作品，都是學習歷程的紀錄</h2><p>未來可持續加入專題海報、成果照片、作品影片與學生心得。此頁採模組化卡片設計，方便後續擴充與分類管理。</p><a class="btn btn-gold" href="index.html">← 返回系所首頁</a></div>
+        <div class="submit-visual"><strong>Learn.<br>Create.<br>Impact.</strong><small>Department of Business Management</small></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><h3>慈濟大學 經營管理學系</h3><p>Department of Business Management<br>Tzu Chi University</p><p>本網站為網頁視覺設計示範，非學校正式公告網站。</p></div>
+        <div><h3>聯絡資訊</h3><p>97074 花蓮市介仁街 67 號<br>電話：03-857-2677 分機 31682<br>電子郵件：<a href="mailto:ss62@gms.tcu.edu.tw">ss62@gms.tcu.edu.tw</a></p></div>
+      </div>
+      <div class="footer-bottom">© <span id="year"></span> TCU Department of Business Management · Student Showcase Demo</div>
+    </div>
+  </footer>
+
+  <script>
+    /* 09. 手機導覽 */
+    const menuButton = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('#main-nav');
+
+    menuButton.addEventListener('click', () => {
+      const isOpen = mainNav.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    mainNav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* 10. 作品分類篩選 */
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projects = document.querySelectorAll('.project');
+    const resultCount = document.querySelector('#result-count');
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const selectedCategory = button.dataset.filter;
+        let visibleCount = 0;
+
+        filterButtons.forEach((item) => {
+          const isActive = item === button;
+          item.classList.toggle('active', isActive);
+          item.setAttribute('aria-pressed', String(isActive));
+        });
+
+        projects.forEach((project) => {
+          const show = selectedCategory === 'all' || project.dataset.category === selectedCategory;
+          project.hidden = !show;
+          if (show) visibleCount += 1;
+        });
+
+        resultCount.textContent = `目前顯示 ${visibleCount} 件成果`;
+      });
+    });
+
+    /* 11. 自動更新年份 */
+    document.querySelector('#year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
