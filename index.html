@@ -54,17 +54,117 @@
     .nav .nav-feature:hover { color: #fff; background: var(--wine-dark); }
     .menu-toggle { display: none; background: transparent; border: 1px solid var(--line); padding: 6px 12px; border-radius: 4px; }
 
-    /* 04. 首頁主視覺：不依賴外部圖片 */
-    .hero { position: relative; overflow: hidden; background: linear-gradient(120deg, #3b1b28, #703446 65%, #85505b); color: white; }
-    .hero::before { content: ""; position: absolute; inset: 0; opacity: .22; background: repeating-linear-gradient(112deg, transparent 0 115px, #e7cba0 116px, transparent 117px); }
-    .hero::after { content: "TCU"; position: absolute; right: -35px; bottom: -145px; font-family: Georgia, serif; font-size: clamp(210px, 36vw, 540px); font-weight: bold; color: #ffffff0b; line-height: 1; pointer-events: none; }
-    .hero-content { position: relative; z-index: 1; padding: 115px 0 125px; max-width: 850px; }
+    /* ==========================================================
+       04. 首頁主視覺：雙重背景遮罩 + G001 人物照片
+       圖片放置位置：images/G001.jpg
+       第一層 linear-gradient 在上，第二層 url() 在下。
+       ========================================================== */
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 550px;
+      overflow: hidden;
+      color: #fff;
+      background-color: var(--wine-dark);
+      background-image:
+        linear-gradient(
+          90deg,
+          rgba(45, 17, 29, 1.00) 0%,
+          rgba(45, 17, 29, 0.99) 28%,
+          rgba(45, 17, 29, 0.92) 43%,
+          rgba(45, 17, 29, 0.58) 60%,
+          rgba(45, 17, 29, 0.08) 85%
+        ),
+        url("images/G001.jpg");
+      background-size: cover, 65% auto;
+      background-position: center, right center;
+      background-repeat: no-repeat;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 1160px);
+      padding-top: 64px;
+      padding-bottom: 74px;
+    }
+
+    .hero-copy {
+      max-width: min(55%, 620px);
+      text-shadow: 0 2px 12px rgba(25, 10, 17, 0.45);
+    }
+
     .hero .eyebrow { color: #e8c998; }
-    .hero h1 { font-size: clamp(2.4rem, 5vw, 4.4rem); line-height: 1.3; letter-spacing: .04em; margin: 18px 0; }
-    .hero h1 span { display: block; font-size: clamp(1rem, 1.8vw, 1.35rem); font-weight: 400; letter-spacing: .1em; margin-top: 13px; color: #f0dbd7; }
-    .hero p { max-width: 620px; color: #f6e9e5; font-size: 1.05rem; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
     .hero-line { width: 68px; height: 3px; background: var(--gold); }
+
+    .hero h1 {
+      margin: 18px 0;
+      font-size: clamp(2.1rem, 3.65vw, 3.5rem);
+      line-height: 1.35;
+      letter-spacing: 0.04em;
+    }
+
+    .hero h1 span {
+      display: block;
+      margin-top: 14px;
+      color: #f0dbd7;
+      font-size: clamp(0.92rem, 1.45vw, 1.18rem);
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: 0.04em;
+    }
+
+    .hero p {
+      max-width: 580px;
+      color: #f6e9e5;
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    /* 中型桌機與平板：維持左側文字清楚，照片靠右 */
+    @media (min-width: 768px) and (max-width: 1100px) {
+      .hero { min-height: 480px; background-size: cover, 72% auto; }
+      .hero-copy { max-width: 59%; }
+      .hero h1 { font-size: clamp(1.9rem, 3.6vw, 2.7rem); }
+    }
+
+    /* 手機：上方深酒紅文字，下方完整顯示人物照片 */
+    @media (max-width: 767px) {
+      .hero {
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        background-image: none;
+      }
+
+      .hero-content {
+        padding-top: 48px;
+        padding-bottom: 42px;
+      }
+
+      .hero-copy { max-width: 100%; }
+      .hero h1 { font-size: clamp(1.85rem, 7vw, 2.5rem); }
+      .hero h1 span { font-size: 0.95rem; }
+
+      .hero::after {
+        content: "";
+        display: block;
+        width: 100%;
+        aspect-ratio: 1372 / 724;
+        background-image: url("images/G001.jpg");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
 
     /* 05. 資訊區塊 */
     .quicklinks { margin-top: -38px; position: relative; z-index: 3; }
@@ -115,7 +215,7 @@
       .utility { display: none; }
       .brand strong { font-size: .92rem; }
       .brand small { font-size: .55rem; }
-      .hero-content { padding: 80px 0 100px; }
+      /* 手機 Hero 高度由上方文字與下方照片自然決定 */
       .section { padding: 60px 0; }
       .quick-grid, .feature-grid, .footer-grid { grid-template-columns: 1fr; }
       .quick-item { border-right: 0; border-bottom: 1px solid var(--line); }
@@ -152,9 +252,10 @@
   </header>
 
   <main>
-    <!-- 首頁主視覺 -->
+    <!-- 首頁主視覺：G001 為純照片，文字由 HTML 顯示 -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-content">
+        <div class="hero-copy">
         <div class="hero-line"></div>
         <p class="eyebrow">Knowledge · Practice · Impact</p>
         <h1 id="hero-title">以管理專業，<br>創造永續影響力<span>Department of Business Management · Tzu Chi University</span></h1>
@@ -163,6 +264,7 @@
           <a class="btn btn-primary" href="#about">探索本系 →</a>
           <a class="btn btn-outline" href="student_outcomes.html">欣賞學生作品 ↗</a>
         </div>
+        </div><!-- /.hero-copy -->
       </div>
     </section>
 
